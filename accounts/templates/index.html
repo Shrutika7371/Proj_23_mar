@@ -1,0 +1,466 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+{% if request.user.position == 'admin'%}
+	<!-- main content -->
+	<div class="wrapper">
+		<div class="row">
+			<div class="col-4 col-m-6 col-sm-6">
+				<div class="counter bg-warning">
+					<p>
+						<i class="fas fa-spinner"></i>
+					</p>
+					<h3>100+</h3>
+					<p>In progress </p>
+				</div>
+			</div>
+			<div class="col-4 col-m-6 col-sm-6">
+				<div class="counter bg-success">
+					<p>
+						<i class="fas fa-check-circle"></i>
+					</p>
+					<h3>100+</h3>
+					<p>Completed</p>
+				</div>
+			</div> 
+			<div class="col-4 col-m-6 col-sm-6">
+				<div class="counter bg-danger">
+					<p>
+						<i class="fas fa-bug"></i>
+					</p>
+					<h3>100+</h3>
+					<p>Issues</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Admin 
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<table>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Project</th>
+									<th>Manager</th>
+									<th>Status</th>
+									<th>Due date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>React</td>
+									<td>Tran Anh Tuat</td>
+									<td>
+										<span class="dot">
+											<i class="bg-success"></i>
+											Completed
+										</span>
+									</td>
+									<td>17/07/2020</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Vue</td>
+									<td>Bui Nhu Sang</td>
+									<td>
+										<span class="dot">
+											<i class="bg-warning"></i>
+											In progress
+										</span>
+									</td>
+									<td>18/07/2020</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Laravel</td>
+									<td>Phan Nhat Truong</td>
+									<td>
+										<span class="dot">
+											<i class="bg-warning"></i>
+											In progress
+										</span>
+									</td>
+									<td>17/07/2020</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Django</td>
+									<td>Le Anh Tuan</td>
+									<td>
+										<span class="dot">
+											<i class="bg-danger"></i>
+											Delayed
+										</span>
+									</td>
+									<td>07/07/2020</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>MEAN</td>
+									<td>John Evan</td>
+									<td>
+										<span class="dot">
+											<i class="bg-primary"></i>
+											Pending
+										</span>
+									</td>
+									<td>20/08/2020</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>MERN</td>
+									<td>Robert</td>
+									<td>
+										<span class="dot">
+											<i class="bg-primary"></i>
+											Pending
+										</span>
+									</td>
+									<td>20/08/2020</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-4 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header text-center">
+						<h3>
+								NEW PROJECT
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<!-- start of form -->
+                   <form action="{% url 'addproject' %}" method="POST" id='myForm'>
+                    {% csrf_token %}
+                   
+                     
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Project_name<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="text" class="form-control" id="project_name" name='proj_name'  placeholder="enter project_name" required>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Project description<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="text" class="form-control" name='proj_description'  placeholder="enter project_name" required>
+                          </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                       <div class="col-6 text-center">
+                     <h4>Assigned to<span class="text-danger">*</span> </h4>
+                       </div>
+                       <div class="col-6 ">
+                        <div class="form-group">
+                            <select class="form-select form-control" name="team_name" aria-label="Default select example">
+                            <option selected>select member email</option>
+                            {% for i in obj %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                          </select> 
+                       </div>
+                       </div>
+                   </div>
+                <!-- end of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Start Date<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="startdate" name='startdate' required>
+                          </div>
+                    </div>
+                </div>
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>End date<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="enddate" name='enddate'  required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <div class="row">
+                <div class="container bg-light">
+                    <div class="col-md-9 text-center">
+					&nbsp&nbsp&nbsp&nbsp&nbsp
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" onclick="myFunction()" class="btn btn-primary">Reset</button>
+                    </div>
+				</div>
+				</div>
+                <!-- end of model -->
+            </form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Chartjs
+						</h3>
+					</div>
+					<div class="card-content">
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% comment %} Team leader index {% endcomment %}
+	{% elif request.user.position == 'Team Leader' %}
+	<div class="wrapper">
+		<div class="row">
+			<div class="col-4 col-m-6 col-sm-6">
+				<div class="counter bg-warning">
+					<p>
+						<i class="fas fa-spinner"></i>
+					</p>
+					<h3>100+</h3>
+					<p>In progress </p>
+				</div>
+			</div>
+			<div class="col-4 col-m-6 col-sm-6">
+				<div class="counter bg-success">
+					<p>
+						<i class="fas fa-check-circle"></i>
+					</p>
+					<h3>100+</h3>
+					<p>Completed</p>
+				</div>
+			</div> 
+			<div class="col-4 col-m-6 col-sm-6">
+				<div class="counter bg-danger">
+					<p>
+						<i class="fas fa-bug"></i>
+					</p>
+					<h3>100+</h3>
+					<p>Issues</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Admin 
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<table>
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Project</th>
+									<th>Manager</th>
+									<th>Status</th>
+									<th>Due date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>React</td>
+									<td>Tran Anh Tuat</td>
+									<td>
+										<span class="dot">
+											<i class="bg-success"></i>
+											Completed
+										</span>
+									</td>
+									<td>17/07/2020</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Vue</td>
+									<td>Bui Nhu Sang</td>
+									<td>
+										<span class="dot">
+											<i class="bg-warning"></i>
+											In progress
+										</span>
+									</td>
+									<td>18/07/2020</td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Laravel</td>
+									<td>Phan Nhat Truong</td>
+									<td>
+										<span class="dot">
+											<i class="bg-warning"></i>
+											In progress
+										</span>
+									</td>
+									<td>17/07/2020</td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Django</td>
+									<td>Le Anh Tuan</td>
+									<td>
+										<span class="dot">
+											<i class="bg-danger"></i>
+											Delayed
+										</span>
+									</td>
+									<td>07/07/2020</td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>MEAN</td>
+									<td>John Evan</td>
+									<td>
+										<span class="dot">
+											<i class="bg-primary"></i>
+											Pending
+										</span>
+									</td>
+									<td>20/08/2020</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>MERN</td>
+									<td>Robert</td>
+									<td>
+										<span class="dot">
+											<i class="bg-primary"></i>
+											Pending
+										</span>
+									</td>
+									<td>20/08/2020</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-4 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header text-center">
+						<h3>
+								NEW Task
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<!-- start of form -->
+                   <form action="{% url 'addproject' %}" method="POST" id='myForm'>
+                    {% csrf_token %}
+                   
+                     
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Project_name<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="text" class="form-control" id="project_name" name='proj_name'  placeholder="enter project_name" required>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Project description<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="text" class="form-control" name='proj_description'  placeholder="enter project_name" required>
+                          </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                       <div class="col-6 text-center">
+                     <h4>Assigned to<span class="text-danger">*</span> </h4>
+                       </div>
+                       <div class="col-6 ">
+                        <div class="form-group">
+                            <select class="form-select form-control" name="team_name" aria-label="Default select example">
+                            <option selected>select member email</option>
+                            {% for i in obj %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                          </select> 
+                       </div>
+                       </div>
+                   </div>
+                <!-- end of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Start Date<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="startdate" name='startdate' required>
+                          </div>
+                    </div>
+                </div>
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>End date<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="enddate" name='enddate'  required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <div class="row">
+                <div class="container bg-light">
+                    <div class="col-md-9 text-center">
+					&nbsp&nbsp&nbsp&nbsp&nbsp
+					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" onclick="myFunction()" class="btn btn-primary">Reset</button>
+                    </div>
+				</div>
+				</div>
+                <!-- end of model -->
+            </form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	{% endif %} 
+
+	<!-- end main content -->
+	{% endblock %}

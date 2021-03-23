@@ -1,0 +1,59 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+	<div class="wrapper">
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Table
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<table>
+							<thead>
+								<tr>
+									<th>First Name</th>
+									<th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>DOB</th>
+                                    <th>Contact</th>
+                                    <th>Gender</th>
+                                    <th>Desg</th>
+                                    <th>Posn</th>
+                                    <th>Rt/day</th>
+                                    <th>alloted leave</th>
+                                    <th>schedule</th>
+                                    <th>update</th>
+                                    <th>delete</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								 {% for i in obj %}
+                                <tr>
+                                    <td>{{ i.first_name}}</td>
+									<td>{{ i.last_name}}</td>
+                                    <td>{{ i.email}}</td>
+                                    <td>{{ i.birth_date}}</td>
+                                    <td>{{ i.contact}}</td>
+                                    <td>{{i.gender}}</td>
+                                    <td>{{i.designation}}</td>
+                                    <td>{{i.position}}</td>
+                                    <td>{{i.Rate_per_day}}</td>
+                                    <td>{{i.alloted_leave}}</td>
+                                    <td>{{i.schedule}}</td>
+                                    <td><a href="empupdate/{{i.email}}"><button type="submit" class="btn btn-primary">Update</button></a></td>
+                                    <td><a href="empdelete/{{i.email}}" onclick="return confirm('Are you sure you want to delete this?')"><button type="submit" class="btn-danger btn">Delete</button></a></td>
+                                    
+								</tr>
+                                {% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+	<!-- end main content -->
+	{% endblock %}

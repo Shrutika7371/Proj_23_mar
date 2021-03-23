@@ -1,0 +1,128 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+	<div class="wrapper">
+        <div class="row">
+			<form action="{% url 'addschedule' %}" class='form-inline'method="POST" id='myForm'>
+            {% csrf_token %}
+                <div class="form-group ">
+                                  &nbsp                &nbsp                &nbsp                &nbsp  <input type="text" class="form-control " id="shift" name='shift'  placeholder="Enter shift" required>
+                </div>
+                &nbsp                &nbsp                &nbsp
+                 <label for="Intime ">In</label>
+                <div class="form-group ml-2">
+                    <input type="time" class="form-control " id="in_time" name='in_time'  placeholder="Enter in_time" required>
+                </div>
+                                &nbsp                &nbsp                &nbsp
+                <label for="Intime">Out:</label>
+                <div class="form-group ">
+                    <input type="time" class="form-control " id="out_time" name='out_time'  placeholder="Enterout_time" required>
+                </div>
+                                &nbsp                &nbsp                &nbsp
+                    <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+		</div>
+		<div class="row">
+			<div class="col-8 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Table
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<table>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Shift</th>
+                                    <th>IN TIME</th>
+                                    <th>OUT TIME</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								 {% for i in obj %}
+                                <tr>
+                                    <td>{{ i.id }}</td>
+									<td>{{ i.shift}}</td>
+                                    <td>{{ i.intime}}</td>
+                                    <td>{{ i.outtime}}</td>
+                                    <td><a href="{% url 'scheduleupdate' id=i.id %}"><button type="submit" class="btn btn-primary">Update</button></a></td>
+                                    <td><a href="{% url 'scheduledelete' id=i.id %}" onclick="return confirm('Are you sure you want to delete this?')"><button type="submit" class="btn-danger btn">Delete</button></a></td>
+                                    
+								</tr>
+                                {% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-4 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Progress bar
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<div class="progress-wrapper">
+							<p>
+								Less than 1 hour
+								<span class="float-right">50%</span>
+							</p>
+							<div class="progress">
+								<div class="bg-success" style="width: 50%"></div>
+							</div>
+						</div>
+						<div class="progress-wrapper">
+							<p>
+								1 - 3 hours
+								<span class="float-right">60%</span>
+							</p>
+							<div class="progress">
+								<div class="bg-primary" style="width:60%"></div>
+							</div>
+						</div>
+						<div class="progress-wrapper">
+							<p>
+								More than 3 hours
+								<span class="float-right">40%</span>
+							</p>
+							<div class="progress">
+								<div class="bg-warning" style="width:40%"></div>
+							</div>
+						</div>
+						<div class="progress-wrapper">
+							<p>
+								More than 6 hours
+								<span class="float-right">20%</span>
+							</p>
+							<div class="progress">
+								<div class="bg-danger" style="width:20%"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Chartjs
+						</h3>
+					</div>
+					<div class="card-content">
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end main content -->
+	{% endblock %}

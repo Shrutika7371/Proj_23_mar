@@ -1,0 +1,233 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+<div class="wrapper">
+   
+    <div class="row">
+        <div class="col-8 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Add User
+                    </h3>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="card-content">
+                   
+                   <!-- start of form -->
+                   <form action="{% url 'adduser' %}" method="POST" id='myForm'>
+                    {% csrf_token %}
+                   <!-- start of model -->
+                   <div class="row">
+                       <div class="col-6 text-center">
+                     <h4>First Name<span class="text-danger">*</span> </h4>
+                       </div>
+                       <div class="col-6 ">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="fname" name='fname'  placeholder="Enter Firstname" required>
+                             </div>
+                       </div>
+                   </div>
+                   <!-- end of model -->
+                      <!-- start of model -->
+                   <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Last Name<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="text" class="form-control" id="lname" name='lname' placeholder="Enter Lastname" required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Email<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="email" class="form-control" id="email" name='email'  placeholder="Enter Email" required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Password<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="password" class="form-control" id="password" name='password' placeholder="Enter Password" required>
+                          </div>
+                    </div>
+                </div>
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Date-of-birth<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="dob" name='dob' placeholder="Enter date-of-birth" required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Gender<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group row">
+                        <div class="form-check" >
+                            <label class="form-check-label">&nbsp;&nbsp;
+                              <input type="radio" class="form-check-input" name='gender'value="Male" >Male&nbsp;&nbsp;
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <label class="form-check-label">&nbsp;&nbsp;
+                              <input type="radio" class="form-check-input" name='gender' value="Female">Female &nbsp;&nbsp;
+                            </label>
+                          </div>
+                          <div class="form-check disabled">
+                            <label class="form-check-label">&nbsp;&nbsp;
+                              <input type="radio" class="form-check-input"name='gender' value="Transgender" disabled>Transgender
+                            </label>
+                          </div>
+                    </div>
+                </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Phone number<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="tel" class="form-control" id="contact" name='contact' pattern="[0-9]{10}" placeholder="Enter Phonenumber" required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Designation<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                        <select class="form-select form-control" name='designation' aria-label="Default select example">
+                            <option selected>select position</option>
+                            {% for i in obj1 %}
+                            <option value="{{ i.designation}}">{{ i.designation}}</option>
+                            {% endfor %}
+                          </select>                       
+                    </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Rate per day<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="number" class="form-control" name="rateperday"  placeholder="Enter rate per day" required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Alloted leave<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                         <input type="number" class="form-control" name="alloted_leave"   placeholder="Enter alloted leave" required>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Schedule<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-6 ">
+                     <div class="form-group">
+                        <select class="form-select form-control" name="schedule"aria-label="Default select example">
+                            <option selected>select schedule</option>
+                            {% for i in obj2 %}
+                            <option value="{{ i.intime}} - {{i.outtime}}">{{ i.intime}} - {{i.outtime}}</option>
+                            {% endfor %}
+                          </select> 
+                        </div>
+                    </div>
+                </div>
+                <div class="container bg-light">
+                    <div class="col-md-9 text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" onclick="myFunction()" class="btn btn-primary">Reset</button>
+                    </div>
+                </div>
+                <!-- end of model -->
+            </form>
+                   <!-- end of form -->
+                </div>
+            </div>
+        </div>
+        <div class="col-4 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Progress bar
+                    </h3>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="card-content">
+                    <div class="progress-wrapper">
+                        <p>
+                            Less than 1 hour
+                            <span class="float-right">50%</span>
+                        </p>
+                        <div class="progress">
+                            <div class="bg-success" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-wrapper">
+                        <p>
+                            1 - 3 hours
+                            <span class="float-right">60%</span>
+                        </p>
+                        <div class="progress">
+                            <div class="bg-primary" style="width:60%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-wrapper">
+                        <p>
+                            More than 3 hours
+                            <span class="float-right">40%</span>
+                        </p>
+                        <div class="progress">
+                            <div class="bg-warning" style="width:40%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-wrapper">
+                        <p>
+                            More than 6 hours
+                            <span class="float-right">20%</span>
+                        </p>
+                        <div class="progress">
+                            <div class="bg-danger" style="width:20%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+        {% endblock %}
