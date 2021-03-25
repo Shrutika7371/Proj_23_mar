@@ -23,17 +23,31 @@ def addteam(request):
     return redirect('teams')
 
 def teamdelete(request,teamname):
-    team.objects.filter(team_name=teamname).delete()
-    return redirect('teams')
+    obj1= team.objects.get(team_name=teamname).status
+    if obj1=='busy':
+        return redirect('teams')
+    else: 
+        obj = member.objects.filter(team_name=teamname)
+        print(obj)
+        for i in obj:
+            CustomUser.objects.filter(email=i.member_email).update(position="employee")
+        member.objects.filter(team_name=teamname).delete()
+        team.objects.get(team_name=teamname).delete()
+        return redirect("teams")
 
-def teamdetails(request,teamname):
+    
+def teamdetails(request,teamname):      
     obj=team.objects.get(team_name = teamname)
+    obj1=Project.objects.filter(assigned_to = obj.team_name)
     obj2=member.objects.filter(team_name = teamname)
-    obj3=CustomUser.objects.filter(position="employee")
-
-    dict1={'obj':obj, 'obj1':obj1, 'obj2':obj2,'obj3':obj3}
-    # dict1={'obj':obj}
+    obj3=CustomUser.objects.filter(position = "employee")
+    if obj1 is not None:
+        dict1={'obj':obj, 'obj1':obj1, 'obj2':obj2,'obj3':obj3}
+    else:
+        dict1={'obj':obj, 'obj1':obj1, 'obj2':obj2,'obj3':obj3}
     return render(request,'teamdetails.html',dict1)
+
+    
 
 
 def addmember(request):

@@ -10,6 +10,7 @@ class team(models.Model):
     team_name = models.CharField(max_length=100,primary_key=True,unique=True)
     team_description =  models.CharField(max_length=500,default='desc',null=True,blank=True)
     date_start = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=10, default='free')
 
     def __str__(self):
         return self.team_name

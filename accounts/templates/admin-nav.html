@@ -19,7 +19,7 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
-<body class="overlay-scrollbar">
+<body class="overlay-scrollbar" onload="alertfunction()">
 	<!-- navbar -->
 	<div class="navbar">
 		<!-- nav left -->
@@ -319,11 +319,11 @@
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="{% url 'newproject' %}" class="sidebar-nav-link">
+				<a href="{% url 'project' %}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-spinner"></i>
 					</div>
-					<span> New Project</span>
+					<span>Project</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
@@ -470,7 +470,15 @@
 	</div>
 	<!-- end sidebar -->
 	{% endif %}
-  {% block content %}
+	<script>
+		function alertfunction(){
+			{% if message %}
+			alert('{{ message }}')
+			{% endif %}
+		}
+		
+	</script>
+	  {% block content %}
   
  {% endblock %}
  
@@ -484,5 +492,13 @@
 <script>
     function myFunction() {
         document.getElementById("myForm").reset();
+
         }
+</script>
+<script>
+	setTimeout(function(){
+		if($('#msg').length>0){
+			$('#msg').remove();
+		}
+	},8000)
 </script>

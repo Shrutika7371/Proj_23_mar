@@ -1,5 +1,8 @@
 from django.shortcuts import render ,redirect
 from accounts.models import *
+from mainapp.models import *
+from task.models import *
+from teams.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 import datetime
@@ -18,14 +21,7 @@ def dologin(request):
     print(user is not None)
     if user is not None:
         login(request, user)
-        #obj = CustomUser.objects.get(email=email)
         flag = redirect('index')
-        # if(obj.position=="admin"):
-        #     flag = redirect('index')
-        # elif(obj.position=="Group Leader"):
-        #     flag = redirect('indexgroupleader')
-        # elif(obj.position == "Team Member"):
-        #     flag = redirect('indexuser')
 
     else:
         flag=redirect('loginpage')
@@ -34,7 +30,9 @@ def dologin(request):
 
 @login_required(login_url='loginpage')
 def index(request):
-    return render(request , "index.html")
+    obj = team.objects.all()
+    dict1 = {'obj':obj}
+    return render(request , "index.html",dict1)
     
 
 @login_required(login_url='loginpage')

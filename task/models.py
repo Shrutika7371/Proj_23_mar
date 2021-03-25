@@ -24,7 +24,7 @@ class Module(models.Model):
 
 
 class Project(models.Model):
-    proj_name = models.CharField(max_length=200,default='newproj', null=True, blank=True)
+    proj_name = models.CharField(max_length=200,default='newproj', unique=True , primary_key=True)
     Proj_description =  models.CharField(max_length=500,default="description", null=True, blank=True)
     proj_status = models.CharField(max_length=100,default="pending", null=True, blank=True)
     assigned_to = models.ForeignKey(team, on_delete=models.DO_NOTHING)
