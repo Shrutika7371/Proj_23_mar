@@ -9,11 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
-def newproject(request):
-    obj = team.objects.all()
-    dict1={'obj':obj}
-    return render(request,'newproject.html',dict1)
-
 def addproject(request):
     proj_name = request.POST.get('proj_name')
     proj_description = request.POST.get('proj_description')

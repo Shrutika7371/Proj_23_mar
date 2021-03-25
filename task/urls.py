@@ -2,8 +2,9 @@ from django.urls import path,include
 from . import views
 
 urlpatterns = [
-   # path('accounts', include('accounts.urls')),
-   path('newproject', views.newproject, name='newproject'),
-   path('addproject', views.addproject, name='addproject')
+   path('addproject', views.addproject, name='addproject'),
+   path('project', views.project, name='project'),
+   path('projectupdate/<str:pk>/', views.projectupdate, name='projectupdate'),
+   path('projectdelete/<str:pk>/', views.projectdelete, name='projectdelete'),
 
 ]

@@ -26,10 +26,8 @@ def teamdelete(request,teamname):
     team.objects.filter(team_name=teamname).delete()
     return redirect('teams')
 
-
 def teamdetails(request,teamname):
     obj=team.objects.get(team_name = teamname)
-    obj1=Project.objects.get(assigned_to = teamname)
     obj2=member.objects.filter(team_name = teamname)
     obj3=CustomUser.objects.filter(position="employee")
 
