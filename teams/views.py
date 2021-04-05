@@ -5,6 +5,7 @@ from task.models import *
 from .models import *
 from task.models import *
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -66,9 +67,52 @@ def addmember(request):
 
 def deletemember(request,pk):
     obj = member.objects.get(id=pk)
-    print(obj.member_email)
-    email=obj.member_email
-    teamname=obj.team_name
-    CustomUser.objects.filter(email=email).update(position="employee")
-    obj.delete()
-    return redirect('teamdetails',teamname)
+    if obj.member_status=="busy":
+        messages.error(request,'your project registered succussfully!!')
+    else:
+        CustomUser.objects.filter(email=obj.member_email).update(position="employee")
+        member.objects.get(id=pk).delete()
+    return redirect('teamdetails',obj.team_name)
+
+
+
+def updatemember(request,pk):
+    obj4 = member.objects.get(id=pk)
+    teamname = obj4.team_name
+    print(teamname)
+    obj=team.objects.get(team_name = teamname)
+    obj1=Project.objects.filter(assigned_to = obj.team_name)
+    obj2=member.objects.filter(team_name = teamname)
+    obj3=CustomUser.objects.filter(position = "employee")
+    if obj1 is not None:
+        dict1={'obj':obj, 'obj1':obj1, 'obj2':obj2,'obj3':obj3}
+    else:
+        dict1={'obj':obj, 'obj1':obj1, 'obj2':obj2,'obj3':obj3}
+    dict1['obj4'] = obj4
+    return render(request,"updatemember.html",dict1)
+
+def leaderteam(request):
+    email = request.user.email
+    obj = member.objects.get(member_email=email).team_name
+    return redirect("teamdetails",obj)
+
+
+def memberupdate(request):
+    id1 = request.POST.get('id')
+    position = request.POST.get('position')
+    member.objects.filter(id=id1).update(member_position=position)
+    email = member.objects.get(id=id1).member_email
+    CustomUser.objects.filter(email=email).update(position=position)
+    obj = member.objects.get(id=id1).team_name
+    return redirect('teamdetails',obj)
+
+
+
+def teammember(request):
+    email = request.user.email
+    teamname = member.objects.get(member_email=email).team_name
+    obj =  member.objects.filter(team_name=teamname)
+    obj1 = Project.objects.filter(assigned_to = teamname)
+    obj2 = team.objects.get(team_name=teamname)
+    dict1={'obj':obj, 'obj1':obj1,'obj2':obj2}
+    return render(request,'teammember.html',dict1)

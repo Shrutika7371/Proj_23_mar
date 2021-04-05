@@ -22,4 +22,5 @@ urlpatterns = [
     path('mainapp/', include('mainapp.urls')),
     path('task/', include('task.urls')),
     path('teams/', include('teams.urls')),
+    path('leave/', include('leave.urls')),
 ]

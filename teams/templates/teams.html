@@ -30,7 +30,6 @@
 						<table>
 							<thead>
 								<tr>
-									<th>ID</th>
 									<th>Name</th>
                                     <th>Description</th>
                                     <th>Details</th>
@@ -40,7 +39,6 @@
 							<tbody>
 								 {% for i in obj %}
                                 <tr>
-                                    <td>{{ i.team_id }}</td>
 									<td>{{ i.team_name}}</td>
                                     <td>{{ i.team_description}}</td>                                   
                                     <td><a href="teamdetails/{{i.team_name}}"><button type="submit" class="btn btn-primary">Details</button></a></td>

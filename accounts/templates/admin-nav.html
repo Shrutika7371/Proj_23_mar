@@ -19,7 +19,7 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
-<body class="overlay-scrollbar" onload="alertfunction()">
+<body class="overlay-scrollbar">
 	<!-- navbar -->
 	<div class="navbar">
 		<!-- nav left -->
@@ -36,10 +36,10 @@
 		</ul>
 		<!-- end nav left -->
 		<!-- form -->
-		<form class="navbar-search">
+		{% comment %} <form class="navbar-search">
 			<input type="text" name="Search" class="navbar-search-input" placeholder="What you looking for...">
 			<i class="fas fa-search"></i>
-		</form>
+		</form> {% endcomment %}
 		<!-- end form -->
 		<!-- nav right -->
 		<ul class="navbar-nav nav-right">
@@ -335,7 +335,7 @@
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="{% url 'leaveadmin' %}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-bug"></i>
 					</div>
@@ -386,8 +386,7 @@
 	</div>
 	<!-- end sidebar -->
 	{% comment %} Team leader  {% endcomment %}
-	{% elif request.user.position == 'Team Leader' %}
-	
+	{% elif request.user.position == 'Team leader' %}
 		<div class="sidebar">
 		<ul class="sidebar-nav">
 			<li class="sidebar-nav-item">
@@ -401,21 +400,14 @@
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link ">
+				<a href="{% url 'task'%}" class="sidebar-nav-link ">
 					<div>
 						<i class="fab fa-accusoft"></i>
 					</div>
-					<span>Create Task</span>
+					<span>Task</span>
 				</a>
 			</li>
-			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
-					<div>
-						<i class="fas fa-tasks"></i>
-					</div>
-					<span>Assign task</span>
-				</a>
-			</li>
+			
 			<li  class="sidebar-nav-item">
 				<a href="#" class="sidebar-nav-link">
 					<div>
@@ -425,7 +417,7 @@
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="{% url 'leaderteam' %}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-check-circle"></i>
 					</div>
@@ -433,37 +425,60 @@
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="{% url 'leaveleader' %}" class="sidebar-nav-link">
 					<div>
 						<i class="fas fa-bug"></i>
 					</div>
 					<span>Leave applications</span>
 				</a>
 			</li>
-			
+		</ul>
+	</div>
+	<!-- end sidebar -->
+	{% elif request.user.position == 'Team member' or request.user.position == "employee"%}
+	<div class="sidebar">
+		<ul class="sidebar-nav">
+			<li class="sidebar-nav-item">
+				<a href="{% url 'index' %}" class="sidebar-nav-link">
+					<div>
+						<i class="fas fa-tachometer-alt"></i>
+					</div>
+					<span>
+						Dashboard
+					</span>
+				</a>
+			</li>
+			<li class="sidebar-nav-item">
+				<a href="{% url 'taskassigned'%}" class="sidebar-nav-link ">
+					<div>
+						<i class="fab fa-accusoft"></i>
+					</div>
+					<span>Task</span>
+				</a>
+			</li>
 			
 			<li  class="sidebar-nav-item">
 				<a href="#" class="sidebar-nav-link">
 					<div>
-						<i class="fas fa-adjust"></i>
+						<i class="fas fa-spinner"></i>
 					</div>
-					<span>Morbi</span>
+					<span>abc</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="{% url 'teammember' %}" class="sidebar-nav-link">
 					<div>
-						<i class="fab fa-algolia"></i>
+						<i class="fas fa-check-circle"></i>
 					</div>
-					<span>Praesent</span>
+					<span>Team</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="{% url 'leavemember' %}" class="sidebar-nav-link">
 					<div>
-						<i class="fas fa-audio-description"></i>
+						<i class="fas fa-bug"></i>
 					</div>
-					<span>Pellentesque</span>
+					<span>Leave applications</span>
 				</a>
 			</li>
 		</ul>
@@ -472,13 +487,12 @@
 	{% endif %}
 	<script>
 		function alertfunction(){
-			{% if message %}
+			{% if smessage %}
 			alert('{{ message }}')
 			{% endif %}
 		}
-		
 	</script>
-	  {% block content %}
+  {% block content %}
   
  {% endblock %}
  
@@ -492,7 +506,6 @@
 <script>
     function myFunction() {
         document.getElementById("myForm").reset();
-
         }
 </script>
 <script>

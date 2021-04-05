@@ -23,10 +23,10 @@ class member(models.Model):
     team_name = models.ForeignKey(team , on_delete=models.DO_NOTHING)
     member_position = models.CharField(max_length=100,default="teammember",null=True,blank=True)
     joining_date = models.DateTimeField(default=timezone.now)
-    
+    member_status = models.CharField(max_length=50,default="free", null=True, blank=True)
 
     def __str__(self):
-        return self.member_name
+        return self.member_email
         
     
 

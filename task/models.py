@@ -5,22 +5,18 @@ from mainapp.models import *
 from accounts.models import *
 from django.utils import timezone
 
+
 #Create your models here.
-class Task(models.Model):
-    task = models.CharField(max_length=30,default="newassignment", unique=True, primary_key=True)
+class Taskdata(models.Model):
+    task_name = models.CharField(max_length=30,default="newassignment", unique=True, primary_key=True)
     task_details =  models.CharField(max_length=30,default="newassignment",null=True, blank=True)
-    start_date =models.DateTimeField(default=timezone.now)
-    end_date = models.DateTimeField(default=timezone.now)
-    
+    start_date =models.DateTimeField(auto_now_add=True,null=True, blank=True,auto_now=False)
+    end_date = models.DateTimeField(default=timezone.now,null=True, blank=True)
+    assign_member = models.ForeignKey(member,default=" ",on_delete=models.DO_NOTHING)
+    task_status =  models.CharField(max_length=30,default="pending",null=True, blank=True)
     def __str__(self):
-        return self.assignment_name
+        return self.task_name
 
-class Module(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    module = models.CharField(max_length=100,default='module',null=True, blank=True)
-
-    def __str__(self):
-        return self.task
 
 
 class Project(models.Model):

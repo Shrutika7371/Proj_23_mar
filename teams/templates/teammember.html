@@ -1,0 +1,125 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+	<div class="wrapper">
+            <div class="row">
+        <div class="col-8 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>
+                        My Team
+                    </h3>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="card-content">
+           <div class="container" style="height: 480px;overflow: scroll;">
+                <div class="card-content  col-8 col-m-12 col-sm-12">
+						<table>
+							<thead>
+								<tr>
+									<th>Name</th>
+                                    <th>Email</th>
+                                    <th>Position</th>
+                                    <th>status</th>
+                                    
+								</tr>
+							</thead>
+							<tbody>
+								 {% for i in obj %}
+                                <tr>
+									<td>{{ i.member_name}}</td>
+                                    <td>{{i.member_email}}</td>
+                                    <td>{{ i.member_position}}</td>
+                                    <td>{{i.member_status}}</td>
+
+								</tr>
+                                {% endfor %}
+							</tbody>
+						</table>
+                    </div>
+                </div>
+                   <!-- end of form -->
+                </div>
+            </div>
+        </div>
+        
+			<div class="col-4 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Progress bar
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<div class="progress-wrapper">
+                            <!--start  -->
+                            <div class="row text-center">
+                                         <div class="col-6">
+                                                   <h4>Teamname</h4>
+                                         </div>
+                                         <div class="col-6">
+                                        <h4>{{ obj2.team_name}}</h4>
+                                         </div>
+
+                            </div>
+                            <hr>
+                            <!-- end -->
+                            <!--start  -->
+                            <div class="row text-center">
+                                <div class="col-6">
+                                          <h4>Team Description</h4>
+                                </div>
+                                <div class="col-6">
+                               <h4>{{ obj2.team_description}}</h4>
+                                </div>
+
+                   </div>
+                   <hr>
+                   <!-- end -->
+                                <!--start  -->
+                                {% for i in obj1 %}
+                            <div class="row text-center">
+                                <div class="col-6">
+                                          <h4>Project Assigned</h4>
+                                </div>
+                                <div class="col-6">
+                               <h4>{{ i.proj_name}}</h4>
+                                </div>
+
+                   </div>
+                   <hr>
+                   <!-- end -->
+                        <!--start  -->
+                        <div class="row text-center">
+                            <div class="col-6">
+                                      <h4>Project details</h4>
+                            </div>
+                            <div class="col-6">
+                           <h4>{{ i.Proj_description}}</h4>
+                            </div>
+
+               </div>
+               <hr>
+               <!-- end -->
+                    <!--start  -->
+                            <div class="row text-center">
+                                         <div class="col-6">
+                                                   <h4>Project status</h4>
+                                         </div>
+                                         <div class="col-6">
+                                        <h4>{{ i.proj_status}}</h4>
+                                         </div>
+
+                            </div>
+                            <hr>
+                            {% endfor %}
+                            <!-- end -->
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- end main content -->
+	{% endblock %}

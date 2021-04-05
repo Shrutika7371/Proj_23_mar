@@ -1,0 +1,123 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+	<div class="wrapper">
+            <div class="row">
+        <div class="col-5 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                       Leave Application
+                    </h3>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="card-content">
+                <div class="row">
+			 <form action="{% url 'applyleave' %}" method="POST" id='myForm'>
+                    {% csrf_token %}
+                   <!-- start of model -->
+                   <div class="row">
+                       <div class="col-3 text-center">
+                     <h4>leave <span class="text-danger">*</span> </h4>
+                       </div>
+                       <div class="col-2 ">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="leave" name='leave_reason'  placeholder="Enter leave reason" required>
+                             </div>
+                       </div>
+                   </div>
+                   
+                            <input type="hidden" class="form-control" id="leave" name='teamname' value="{{obj.team_name}}"  required>
+                            
+                   <!-- end of model -->
+                <!-- start of model -->
+                   
+                     
+                         <input type="hidden" class="form-control" id="email" name='email'  value="{{ request.user.email}}" required>
+                    
+                    
+                <!-- end of model -->
+                
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-3 text-center">
+                       <h4>FROM<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-2 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="" name='from' required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <div class="row">
+                    <div class="col-3 text-center">
+                       <h4>To<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-2 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="" name='to' required>
+                          </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-3 text-center">
+                       <h4>Number of days<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-2 ">
+                     <div class="form-group">
+                         <input type="integer" class="form-control" id="" name='no_of_days' required>
+                          </div>
+                    </div>
+                </div>
+                <!-- start of model -->
+                <div class="container bg-light">
+                    <div class="col-md-6 text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" onclick="myFunction()" class="btn btn-primary">Reset</button>
+                    </div>
+                </div>
+                <!-- end of model -->
+            </form>
+		</div>
+                </div>
+            </div>
+        </div>
+        
+			<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Leave History
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<table>
+							<thead>
+								<tr>
+									<th>Leave Reason</th>
+									<th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>No of days</th>
+                                    <th>Status</th>
+                                   </tr>
+							</thead>
+							<tbody>
+								 {% for i in obj1 %}
+                                <tr>
+                                    <td>{{ i.leave_reason}}</td>
+									<td>{{ i.start_date}}</td>
+                                    <td>{{ i.end_date}}</td>
+                                    <td>{{ i.no_of_days}}</td>
+                                    <td>{{ i.Leave_Status}}</td>
+                                   
+								</tr>
+                                {% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			
+	<!-- end main content -->
+	{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+	<div class="wrapper">
+		<div class="row">
+			<div class="col-4 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header text-center">
+						<h3>
+							    Task details
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<!-- start of form -->
+                   
+                <!-- start of model -->
+                   {% for i in obj %}
+                     <div class="row">
+                         <div class="col-6 text-center">
+                           <h4>Task</h4>
+                          </div>
+                     <div class="col-6 ">
+                         <div class="col-6 text-center">
+                           <h4>{{ i }}</h4>
+                         </div>
+                     </div>
+                     </div>
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Task description</h4>
+                    </div>
+                    <div class="col-6 ">
+                      <div class="col-6 text-center">
+                       <h4>{{ i.task_details }} </h4>
+                    </div>
+                </div>
+                
+                <div class="row">
+                       <div class="col-6 text-center">
+                     <h4>Start date </h4>
+                       </div>
+                       <div class="col-6 text-center">
+                       <h4>{{ i.start_date }} </h4>
+                    </div>
+                   </div>
+                <!-- end of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>End Date </h4>
+                    </div>
+                     <div class="col-6 text-center">
+                       <h4>{{ i.end_date }}</h4>
+                    </div>
+                </div>
+                
+               {% endfor %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+	<!-- end main content -->
+	{% endblock %}

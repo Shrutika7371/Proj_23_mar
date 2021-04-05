@@ -1,0 +1,203 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+	<div class="wrapper">
+ 
+        <div class="row">
+			<form action="{% url 'memberupdate' %}" class='form-inline'method="POST" id='myForm'>
+            {% csrf_token %}
+            <div class="form-group ">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <input type="hidden" class="form-control " id="id" name='id' value="{{obj4.id}}" >
+                </div>
+                <label for="name ">Name</label>
+                <div class="form-group ">
+                    <input type="text"style="width:300px;" class="form-control " id="name" name='name' value="{{obj4.member_name}}" >
+                </div>
+                <label for="position ">Position</label>
+                <div class="form-group ml-2">
+                    <select class="form-select form-control"style="width:300px;" name="position" aria-label="Default select example">
+                            <option selected>{{obj4.member_position}}</option>
+                            <option value="Team leader">Team Leader</option>
+                            <option value="Team Member">Team Member</option>
+                            <option value="HR">HR</option>
+                            <option value="TR">TR</option>
+                          </select> 
+                </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+		</div>
+        <div class="row">
+        <div class="col-8 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Add Member
+                    </h3>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="card-content">
+                <div class="row">
+			<form action="{% url 'addmember' %}" class='form-inline'method="POST" id='myForm'>
+            {% csrf_token %}
+            <div class="form-group ">
+                    <input type="hidden" class="form-control " name='teamname'  value={{obj.team_name}}>
+                </div>
+                
+                <div class="form-group ">
+                <label for="member_name ">Name</label>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <select class="form-select form-control" name="email"aria-label="Default select example">
+                            <option selected>select member email</option>
+                            {% for i in obj3 %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                          </select> 
+                </div>
+               &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                 <label for="Intime ">Position</label>
+                <div class="form-group ml-2">
+                    <select class="form-select form-control" name="position" aria-label="Default select example">
+                            <option selected>select team position</option>
+                            <option value="Team leader">Team leader</option>
+                            <option value="Team member">Team member</option>
+                            <option value="HR">HR</option>
+                            <option value="TR">TR</option>
+                          </select> 
+                </div>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+               
+                
+                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+		</div>
+
+                   
+                   <!-- start of form -->
+            
+           <div class="container" style="height: 480px;overflow: scroll;">
+                <div class="card-content  col-8 col-m-12 col-sm-12">
+						<table>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+                                    <th>position</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+								</tr>
+							</thead>
+							<tbody>
+								 {% for i in obj2 %}
+                                <tr>
+                                    <td>{{ i.id }}</td>
+									<td>{{ i.member_name}}</td>
+                                    <td>{{ i.member_position}}</td>
+                                    <td><a href="{% url 'updatemember' i.pk %}"><button type="submit" class="btn-primary btn">Update</button></a></td>
+                                    <td><a href="{% url 'deletemember' i.pk %}" onclick="return confirm('Are you sure you want to delete this?')"><button type="submit" class="btn-danger btn">Delete</button></a></td>
+
+								</tr>
+                                {% endfor %}
+							</tbody>
+						</table>
+                    </div>
+                </div>
+                   <!-- end of form -->
+                </div>
+            </div>
+        </div>
+        
+			<div class="col-4 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Progress bar
+						</h3>
+						<i class="fas fa-ellipsis-h"></i>
+					</div>
+					<div class="card-content">
+						<div class="progress-wrapper">
+                            <!--start  -->
+                            <div class="row text-center">
+                                         <div class="col-6">
+                                                   <h4>Teamname</h4>
+                                         </div>
+                                         <div class="col-6">
+                                        <h4>{{ obj.team_name}}</h4>
+                                         </div>
+
+                            </div>
+                            <hr>
+                            <!-- end -->
+                            <!--start  -->
+                            <div class="row text-center">
+                                <div class="col-6">
+                                          <h4>Team Description</h4>
+                                </div>
+                                <div class="col-6">
+                               <h4>{{ obj.team_description}}</h4>
+                                </div>
+
+                   </div>
+                   <hr>
+                   <!-- end -->
+                                <!--start  -->
+                                {% for i in obj1 %}
+                            <div class="row text-center">
+                                <div class="col-6">
+                                          <h4>Project Assigned</h4>
+                                </div>
+                                <div class="col-6">
+                               <h4>{{ i.proj_name}}</h4>
+                                </div>
+
+                   </div>
+                   <hr>
+                   <!-- end -->
+                        <!--start  -->
+                        <div class="row text-center">
+                            <div class="col-6">
+                                      <h4>Project details</h4>
+                            </div>
+                            <div class="col-6">
+                           <h4>{{ i.Proj_description}}</h4>
+                            </div>
+
+               </div>
+               <hr>
+               <!-- end -->
+                    <!--start  -->
+                            <div class="row text-center">
+                                         <div class="col-6">
+                                                   <h4>Project status</h4>
+                                         </div>
+                                         <div class="col-6">
+                                        <h4>{{ i.proj_status}}</h4>
+                                         </div>
+
+                            </div>
+                            <hr>
+                            {% endfor %}
+                            <!-- end -->
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 col-m-12 col-sm-12">
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							Chartjs
+						</h3>
+					</div>
+					<div class="card-content">
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end main content -->
+	{% endblock %}

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'task',
     'mainapp',
     'teams',
+    'leave',
 ]
 
 MIDDLEWARE = [

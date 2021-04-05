@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-6 ">
                      <div class="form-group">
-                         <input type="date" class="form-control" id="startdate" value="{{ j.start_date }}" name='startdate' required>
+                         <input type="date" class="form-control" id="startdate" value="{{ j.start_date|date:"Y-m-d" }}" name='startdate' required>
                           </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="col-6 ">
                      <div class="form-group">
-                         <input type="date" class="form-control" id="enddate" value="{{ j.end_date }}" name='enddate'  required>
+                         <input type="date" class="form-control" id="enddate" value="{{ j.end_date|date:"Y-m-d" }}" name='enddate'  required>
                           </div>
                     </div>
                 </div>
