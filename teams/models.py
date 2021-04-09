@@ -26,7 +26,7 @@ class member(models.Model):
     member_status = models.CharField(max_length=50,default="free", null=True, blank=True)
 
     def __str__(self):
-        return self.member_email
+        return self.member_name
         
     
 

@@ -67,7 +67,7 @@ def task(request):
     teamname = member.objects.get(member_email=email).team_name
     print(teamname)
     obj = member.objects.filter(team_name=teamname , member_status="free")
-    obj1 = Task.objects.all()
+    obj1 = Taskdata.objects.all()
     print(obj)
     dict1={'obj':obj, 'obj1':obj1}
     return render(request,'task.html',dict1)
@@ -83,7 +83,7 @@ def addtask(request):
     obj = member.objects.get(member_name=member_name)
     member.objects.filter(member_name=member_name).update(member_status = "busy")
     print(5)
-    obj1 = Task(task_name = taskname, task_details=task_details, assign_member =obj, start_date=startdate, end_date=enddate)
+    obj1 = Taskdata(task_name = taskname, task_details=task_details, assign_member =obj, start_date=startdate, end_date=enddate)
     obj1.save()
     if obj1:
         print('saved')
@@ -96,8 +96,8 @@ def taskupdate(request,pk):
     teamname = member.objects.get(member_email=email).team_name
     print(teamname)
     obj = member.objects.filter(team_name=teamname , member_status="free")
-    obj1 = Task.objects.all()
-    obj2 = Task.objects.filter(task_name=pk)
+    obj1 = Taskdata.objects.all()
+    obj2 = Taskdata.objects.filter(task_name=pk)
     for i in obj2:
         print(i)
         print(i.task_details)
@@ -107,7 +107,7 @@ def taskupdate(request,pk):
  
 
 def taskdelete(request,pk):
-    obj = Task.objects.get(task_name=pk)
+    obj = Taskdata.objects.get(task_name=pk)
     obj1 = obj.assign_member
     member.objects.filter(member_name=obj1).update(member_status="free")
     obj.delete()
@@ -117,7 +117,7 @@ def taskdelete(request,pk):
 def taskassigned(request):
     email = request.user.email
     mem = member.objects.get(member_email=email)
-    obj = Task.objects.filter(assign_member=mem)
+    obj = Taskdata.objects.filter(assign_member=mem)
     print(obj)
     dict1 = {'obj':obj}
     return render(request,'taskassigned.html',dict1)
