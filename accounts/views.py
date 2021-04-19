@@ -27,13 +27,58 @@ def dologin(request):
         flag=redirect('loginpage')
     return flag
 
+    
+@login_required(login_url='loginpage')
+def logout_view(request):
+    logout(request)
+    return redirect('loginpage')
+
+@login_required(login_url='loginpage')
+def change_password(request):
+    return render(request,'changepassword.html')
+
+
+@login_required(login_url='loginpage')
+def pass_change(request):
+    newpass = request. POST.get('newpass')
+    confpass = request.POST.get('confpass')
+    email= request.user.email
+    obj = CustomUser.objects.get(email=email)
+    print( request.user.password)
+    print(newpass)
+    if(newpass == confpass):
+        obj.set_password(newpass)
+        obj.save()
+    return redirect('index')
+
+
+
 
 @login_required(login_url='loginpage')
 def index(request):
+    email = request.user.email
     obj = team.objects.all()
-    dict1 = {'obj':obj}
+    if request.user.position!='admin':
+        a=CustomUser.objects.get(email=email)
+        b=member.objects.get(member_email=a).team_name
+        obj1=Project.objects.filter(assigned_to=b)
+        print(obj1)
+        obj2=Project.objects.filter(assigned_to=b)
+        dict1 = {'obj':obj,'obj1':obj1,'obj2':obj2}
+    else:
+        obj3 = Project.objects.all()
+        a = Project.objects.filter(proj_status=100).count()
+        b = Project.objects.filter(proj_status=0).count()
+        c = obj3.count()-a-b
+        dict1 = {'obj':obj,'obj3':obj3,'a':a,'b':b,'c':c}
     return render(request , "index.html",dict1)
     
+@login_required(login_url='loginpage')
+def profile(request):
+    email=request.user.email
+    obj=CustomUser.objects.get(email=email)
+    dict1={'obj':obj}
+    return render(request,"profile.html",dict1)
 
 @login_required(login_url='loginpage')
 def employeetrans(request):

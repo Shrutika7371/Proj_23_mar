@@ -1,5 +1,6 @@
 {% extends 'admin-nav.html' %}
 {% block content %}
+{% load static %}
 	<div class="wrapper">
 		<div class="row">
 			<div class="col-8 col-m-12 col-sm-12">
@@ -11,35 +12,73 @@
 						<i class="fas fa-ellipsis-h"></i>
 					</div>
 					<div class="card-content">
-						<table>
-							<thead>
-								<tr>
-									<th>Task</th>
-                                    <th>Description</th>
-                                    <th>Assigned_to</th>
-                                    <th>Status</th>
-                                    <th>start date</th>
-									<th>End date</th>
-                                    <th>Update</th>
-                                    <th>Delete</th>
-								</tr>
-							</thead>
-							<tbody>
-								 {% for i in obj1 %}
-                                <tr>
-                                    <td>{{ i.task_name }}</td>
-									<td>{{ i.task_details}}</td>
-                                    <td>{{ i.assign_member }}</td>
-                                    <td>{{ i.task_status }}</td>
-                                    <td>{{ i.start_date }}</td>
-                                    <td>{{ i.end_date }}</td>
-                                    <td><a href="{% url 'taskupdate' pk=i.task_name %}"><button type="submit" class="btn btn-primary">Update</button></a></td>
-									<td><a href="{% url 'taskdelete' pk=i.task_name %}" onclick="return confirm('Are you sure you want to delete this?')"><button type="submit" class="btn-danger btn ">Delete</button></a></td>
+						
+<div class="wrap">
+    <div class="flex-container float-left">
+        {% for i in obj1 %}
+        {% if i.task_status == 100 %}
+        <div class="flex-item ">
+            <div class="counter ">
+               
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped rounded-circle active" role="progressbar"
+                    aria-valuenow=" {{ i.task_status }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.task_status }}%">
+                
+                    </div>
+                  </div>
+                 
+                <h4>{{ i.task_name }} </h4>
+                <h6>{{ i.assign_member }}</h6>
+               
+                <h6>{{ i.start_date }} to {{ i.end_date }}</h6>
 
-								</tr>
-                                {% endfor %}
-							</tbody>
-						</table>
+									
+            </div>
+            
+        </div>
+        {% elif i.task_status > 50 %}
+        <div class="flex-item ">
+            <div class="counter ">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+                    aria-valuenow=" {{ i.task_status }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.task_status }}%">
+                
+                    </div>
+                  </div>
+                  
+                    
+                  <h4>{{ i.task_name }} </h4>
+                  <h6>{{ i.assign_member }}</h6>
+                 
+                  <h6>{{ i.start_date }} to {{ i.end_date }}</h6>
+  
+                    
+            </div>
+            
+        </div>
+        {% else %}
+        <div class="flex-item ">
+            <div class="counter ">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                    aria-valuenow=" {{ i.task_status }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.task_status }}%">
+                
+                    </div>
+                  </div>
+                  <h4>{{ i.task_name }} </h4>
+                  <h6>{{ i.assign_member }}</h6>
+                 
+                  <h6>{{ i.start_date }} to {{ i.end_date }}</h6>
+  
+                      
+            </div>
+            
+        </div>
+        {% endif %}
+        {% endfor %}
+      
+      </div>
+</div>
 					</div>
 				</div>
 			</div>
@@ -53,7 +92,7 @@
 					</div>
 					<div class="card-content">
 						<!-- start of form -->
-                   <form action="#" method="POST" id='myForm'>
+                   <form action="{% url 'updatetask' %}" method="POST" id='myForm'>
                     {% csrf_token %}
                    
                      
@@ -126,9 +165,11 @@
 						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                         <button type="submit" class="btn btn-primary text-center">Submit</button>
                         <button type="button" onclick="myFunction()" class="btn btn-primary text-center">Reset</button>
+                      
                     </div>
 				</div>
 				</div>
+
                 {% endfor %}
                 <!-- end of model -->
             </form>
@@ -138,6 +179,20 @@
 		</div>
 		
 	</div>
-
+    <script>
+    var cssId = 'myCss';  // you could encode the css path itself to generate id..
+if (!document.getElementById(cssId))
+{
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = "{% static 'css/task.css' %}";
+        link.media = 'all';
+        head.appendChild(link);
+}
+    
+</script>
 	<!-- end main content -->
 	{% endblock %}

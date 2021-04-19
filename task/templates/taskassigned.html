@@ -1,8 +1,47 @@
 {% extends 'admin-nav.html' %}
 {% block content %}
+{% load static %}
+<style>
+.slidecontainer {
+  width: 100%; 
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+</style>
 	<div class="wrapper">
 		<div class="row">
-			<div class="col-4 col-m-12 col-sm-12">
+			<div class="col-6 col-m-12 col-sm-12">
 				<div class="card">
 					<div class="card-header text-center">
 						<h3>
@@ -12,55 +51,129 @@
 					</div>
 					<div class="card-content">
 						<!-- start of form -->
+            
+<div class="wrap">
+    <div class="flex-container float-left">
+        {% for i in obj %}
+        {% if i.task_status == 100 %}
+        <div class="flex-item ">
+            <div class="counter ">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                    aria-valuenow=" {{ i.task_status }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.task_status }}%">
+                
+                    </div>
+                  </div>
+                    
+                  <h4>{{ i.task_name }} </h4>
+                  <h6>{{ i.assign_member }}</h6>
+                 
+                  <h6>{{ i.start_date }} to {{ i.end_date }}</h6>
+                      
+            </div>
+            
+        </div>
+        {% else %}
+        <div class="flex-item ">
+            <div class="counter ">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                    aria-valuenow=" {{ i.task_status }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.task_status }}%">
+                
+                    </div>
+                  </div>
                    
-                <!-- start of model -->
-                   {% for i in obj %}
-                     <div class="row">
-                         <div class="col-6 text-center">
-                           <h4>Task</h4>
-                          </div>
-                     <div class="col-6 ">
-                         <div class="col-6 text-center">
-                           <h4>{{ i }}</h4>
-                         </div>
-                     </div>
-                     </div>
-                <div class="row">
-                    <div class="col-6 text-center">
-                       <h4>Task description</h4>
-                    </div>
-                    <div class="col-6 ">
-                      <div class="col-6 text-center">
-                       <h4>{{ i.task_details }} </h4>
-                    </div>
-                </div>
-                
-                <div class="row">
-                       <div class="col-6 text-center">
-                     <h4>Start date </h4>
-                       </div>
-                       <div class="col-6 text-center">
-                       <h4>{{ i.start_date }} </h4>
-                    </div>
-                   </div>
-                <!-- end of model -->
-                <div class="row">
-                    <div class="col-6 text-center">
-                       <h4>End Date </h4>
-                    </div>
-                     <div class="col-6 text-center">
-                       <h4>{{ i.end_date }}</h4>
-                    </div>
-                </div>
-                
-               {% endfor %}
-
-					</div>
-				</div>
-			</div>
-		</div>
-		
+                  <h4>{{ i.task_name }} </h4>
+                  <h6>{{ i.assign_member }}</h6>
+                 
+                  <h6>{{ i.start_date }} to {{ i.end_date }}</h6>
+  
+                      
+            </div>
+            
+        </div>
+        {% endif %} 
+        {% endfor %}
+      
+      </div>
+</div>
 	</div>
+        </div>
+      </div>
 
+    <div class="col-4 col-m-12 col-sm-12" id="Div1">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>
+              Current Task
+          </h3>
+          <i class="fas fa-ellipsis-h"></i>
+        </div>
+        <div class="card-content">
+          <!-- start of form -->
+            {%  for i in obj %}
+            {% if i.task_status < 100 %}
+              <div class="row">
+                  <div class="col-12 text-center">
+                     <h3><b>{{i.task_name}}</b></h3>
+                  </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-12 text-center">
+                     <h5>{{i.task_details}}</h5>
+                  </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-12 text-center">
+                     <h5>Start date : {{i.start_date}}</h5>
+                  </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-12 text-center">
+                     <h5>Due date : {{i.end_date}}</h5>
+                  </div>
+                  </div>
+                  <form action="{% url 'updatestatus' pk=i.task_name %}" method="POST">
+                   {% csrf_token %}
+                   
+                  <div class="slidecontainer col-12 center">
+                  
+                    <input type="range" min="1" max="100" value="{{i.task_status}}" class="slider" name="status" id="myRange">
+                    </div>
+
+                     <div class="col-md-12 text-center">
+                     <button type="submit" class="btn btn-primary text-center">Submit</button>
+                  </div>
+                  
+                    
+
+                  </form>
+             
+            {%endif%}
+              {% endfor %}
+              <!-- end of model -->
+        
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+   <script>
+
+    var cssId = 'myCss';  // you could encode the css path itself to generate id..
+if (!document.getElementById(cssId))
+{
+        var head  = document.getElementsByTagName('head')[0];
+        var link  = document.createElement('link');
+        link.id   = cssId;
+        link.rel  = 'stylesheet';
+        link.type = 'text/css';
+        link.href = "{% static 'css/task.css' %}";
+        link.media = 'all';
+        head.appendChild(link);
+}
+    
+</script>
 	<!-- end main content -->
 	{% endblock %}

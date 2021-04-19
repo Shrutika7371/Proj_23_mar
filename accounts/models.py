@@ -54,6 +54,7 @@ class CustomUser(AbstractUser):
     Rate_per_day = models.IntegerField(default=500,null=True, blank=True)
     alloted_leave= models.IntegerField(default=10,null=True, blank=True)
     schedule = models.CharField(max_length=50,default = "10-6",null=True,blank=True)
+    profile_pic = models.ImageField(null=True,blank=True,upload_to="images")
     
     objects = CustomUserManager()
 

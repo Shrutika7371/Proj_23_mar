@@ -1,5 +1,43 @@
 {% extends 'admin-nav.html' %}
 {% block content %}
+<style>
+	.slidecontainer {
+	  width: 100%; 
+	}
+	
+	/* The slider itself */
+	.slider {
+	  -webkit-appearance: none;  /* Override default CSS styles */
+	  appearance: none;
+	  width: 100%; /* Full-width */
+	  height: 25px; /* Specified height */
+	  background: #d3d3d3; /* Grey background */
+	  outline: none; /* Remove outline */
+	  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+	  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+	  transition: opacity .2s;
+	}
+	.slider:hover {
+	  opacity: 1; /* Fully shown on mouse-over */
+	}
+	
+	/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+	.slider::-webkit-slider-thumb {
+	  -webkit-appearance: none; /* Override default look */
+	  appearance: none;
+	  width: 25px; /* Set a specific slider handle width */
+	  height: 25px; /* Slider handle height */
+	  background: #4CAF50; /* Green background */
+	  cursor: pointer; /* Cursor on hover */
+	}
+	
+	.slider::-moz-range-thumb {
+	  width: 25px; /* Set a specific slider handle width */
+	  height: 25px; /* Slider handle height */
+	  background: #4CAF50; /* Green background */
+	  cursor: pointer; /* Cursor on hover */
+	}
+	</style>
 {% if request.user.position == 'admin'%}
 	<!-- main content -->
 	<div class="wrapper">
@@ -9,7 +47,7 @@
 					<p>
 						<i class="fas fa-spinner"></i>
 					</p>
-					<h3>100+</h3>
+					<h3>{{c}}</h3>
 					<p>In progress </p>
 				</div>
 			</div>
@@ -18,7 +56,7 @@
 					<p>
 						<i class="fas fa-check-circle"></i>
 					</p>
-					<h3>100+</h3>
+					<h3>{{a}}</h3>
 					<p>Completed</p>
 				</div>
 			</div> 
@@ -27,8 +65,8 @@
 					<p>
 						<i class="fas fa-bug"></i>
 					</p>
-					<h3>100+</h3>
-					<p>Issues</p>
+					<h3>{{b}}</h3>
+					<p>Pending</p>
 				</div>
 			</div>
 		</div>
@@ -37,7 +75,7 @@
 				<div class="card">
 					<div class="card-header">
 						<h3>
-							Admin 
+							Projects
 						</h3>
 						<i class="fas fa-ellipsis-h"></i>
 					</div>
@@ -45,86 +83,61 @@
 						<table>
 							<thead>
 								<tr>
-									<th>#</th>
+									
 									<th>Project</th>
-									<th>Manager</th>
+									<th>Details</th>
+									<th>Assigned team</th>
 									<th>Status</th>
 									<th>Due date</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>React</td>
-									<td>Tran Anh Tuat</td>
+								
+								{% for i in obj3 %}
+									{% if i.proj_status == 100 %}
+									<tr>
+
+									<td>{{i.proj_name}}</td>
+									<td>{{i.Proj_description}}</td>
+									<td>{{i.assigned_to}}</td>
 									<td>
 										<span class="dot">
 											<i class="bg-success"></i>
 											Completed
 										</span>
 									</td>
-									<td>17/07/2020</td>
-								</tr>
+									<td>{{i.end_date}}</td>
+									</tr>
+									{% elif  i.proj_status > 0 %}
 								<tr>
-									<td>2</td>
-									<td>Vue</td>
-									<td>Bui Nhu Sang</td>
+								
+									
+									<td>{{i.proj_name}}</td>
+									<td>{{i.Proj_description}}t</td>
+									<td>{{i.assigned_to}}</td>
 									<td>
 										<span class="dot">
 											<i class="bg-warning"></i>
 											In progress
 										</span>
 									</td>
-									<td>18/07/2020</td>
+									<td>{{i.end_date}}</td>
 								</tr>
+								{%else %}
 								<tr>
-									<td>3</td>
-									<td>Laravel</td>
-									<td>Phan Nhat Truong</td>
-									<td>
-										<span class="dot">
-											<i class="bg-warning"></i>
-											In progress
-										</span>
-									</td>
-									<td>17/07/2020</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>Django</td>
-									<td>Le Anh Tuan</td>
-									<td>
-										<span class="dot">
-											<i class="bg-danger"></i>
-											Delayed
-										</span>
-									</td>
-									<td>07/07/2020</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>MEAN</td>
-									<td>John Evan</td>
+									<td>{{i.proj_name}}</td>
+									<td>{{i.Proj_description}}t</td>
+									<td>{{i.assigned_to}}</td>
 									<td>
 										<span class="dot">
 											<i class="bg-primary"></i>
 											Pending
 										</span>
 									</td>
-									<td>20/08/2020</td>
+									<td>{{i.end_date}}</td>
 								</tr>
-								<tr>
-									<td>6</td>
-									<td>MERN</td>
-									<td>Robert</td>
-									<td>
-										<span class="dot">
-											<i class="bg-primary"></i>
-											Pending
-										</span>
-									</td>
-									<td>20/08/2020</td>
-								</tr>
+								 {% endif %}
+								 {% endfor %}
 							</tbody>
 						</table>
 					</div>
@@ -134,7 +147,7 @@
 				<div class="card">
 					<div class="card-header text-center">
 						<h3>
-								NEW PROJECT
+								PROJECT
 						</h3>
 						<i class="fas fa-ellipsis-h"></i>
 					</div>
@@ -273,7 +286,7 @@
 				<div class="card">
 					<div class="card-header">
 						<h3>
-							Admin 
+							Project
 						</h3>
 						<i class="fas fa-ellipsis-h"></i>
 					</div>
@@ -281,86 +294,57 @@
 						<table>
 							<thead>
 								<tr>
-									<th>#</th>
+									
 									<th>Project</th>
-									<th>Manager</th>
+									<th>Details</th>
 									<th>Status</th>
 									<th>Due date</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>React</td>
-									<td>Tran Anh Tuat</td>
+								
+								{% for i in obj2 %}
+									{% if i.proj_status == 100 %}
+									<tr>
+
+									<td>{{i.proj_name}}</td>
+									<td>{{i.Proj_description}}t</td>
 									<td>
 										<span class="dot">
 											<i class="bg-success"></i>
 											Completed
 										</span>
 									</td>
-									<td>17/07/2020</td>
-								</tr>
+									<td>{{i.end_date}}</td>
+									</tr>
+									{% elif  i.proj_status > 0 %}
 								<tr>
-									<td>2</td>
-									<td>Vue</td>
-									<td>Bui Nhu Sang</td>
+								
+									
+									<td>{{i.proj_name}}</td>
+									<td>{{i.Proj_description}}t</td>
 									<td>
 										<span class="dot">
 											<i class="bg-warning"></i>
 											In progress
 										</span>
 									</td>
-									<td>18/07/2020</td>
+									<td>{{i.end_date}}</td>
 								</tr>
+								{%else %}
 								<tr>
-									<td>3</td>
-									<td>Laravel</td>
-									<td>Phan Nhat Truong</td>
-									<td>
-										<span class="dot">
-											<i class="bg-warning"></i>
-											In progress
-										</span>
-									</td>
-									<td>17/07/2020</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>Django</td>
-									<td>Le Anh Tuan</td>
-									<td>
-										<span class="dot">
-											<i class="bg-danger"></i>
-											Delayed
-										</span>
-									</td>
-									<td>07/07/2020</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>MEAN</td>
-									<td>John Evan</td>
+									<td>{{i.proj_name}}</td>
+									<td>{{i.Proj_description}}t</td>
 									<td>
 										<span class="dot">
 											<i class="bg-primary"></i>
 											Pending
 										</span>
 									</td>
-									<td>20/08/2020</td>
+									<td>{{i.end_date}}</td>
 								</tr>
-								<tr>
-									<td>6</td>
-									<td>MERN</td>
-									<td>Robert</td>
-									<td>
-										<span class="dot">
-											<i class="bg-primary"></i>
-											Pending
-										</span>
-									</td>
-									<td>20/08/2020</td>
-								</tr>
+								 {% endif %}
+								 {% endfor %}
 							</tbody>
 						</table>
 					</div>
@@ -370,89 +354,58 @@
 				<div class="card">
 					<div class="card-header text-center">
 						<h3>
-								NEW PROJECT
+								PROJECT
 						</h3>
 						<i class="fas fa-ellipsis-h"></i>
 					</div>
 					<div class="card-content">
 						<!-- start of form -->
-                   <form action="{% url 'addproject' %}" method="POST" id='myForm'>
-                    {% csrf_token %}
-                   
-                     
-                <!-- start of model -->
-                <div class="row">
-                    <div class="col-6 text-center">
-                       <h4>Project_name<span class="text-danger">*</span> </h4>
-                    </div>
-                    <div class="col-6 ">
-                     <div class="form-group">
-                         <input type="text" class="form-control" id="project_name" name='proj_name'  placeholder="enter project_name" required>
-                          </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6 text-center">
-                       <h4>Project description<span class="text-danger">*</span> </h4>
-                    </div>
-                    <div class="col-6 ">
-                     <div class="form-group">
-                         <input type="text" class="form-control" name='proj_description'  placeholder="enter project_name" required>
-                          </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                       <div class="col-6 text-center">
-                     <h4>Assigned to<span class="text-danger">*</span> </h4>
-                       </div>
-                       <div class="col-6 ">
-                        <div class="form-group">
-                            <select class="form-select form-control" name="team_name" aria-label="Default select example">
-                            <option selected>select member email</option>
-                            {% for i in obj %}
-                            <option value="{{i}}">{{i}}</option>
-                            {% endfor %}
-                          </select> 
-                       </div>
-                       </div>
-                   </div>
-                <!-- end of model -->
-                <div class="row">
-                    <div class="col-6 text-center">
-                       <h4>Start Date<span class="text-danger">*</span> </h4>
-                    </div>
-                    <div class="col-6 ">
-                     <div class="form-group">
-                         <input type="date" class="form-control" id="startdate" name='startdate' required>
-                          </div>
-                    </div>
-                </div>
-                <!-- start of model -->
-                <div class="row">
-                    <div class="col-6 text-center">
-                       <h4>End date<span class="text-danger">*</span> </h4>
-                    </div>
-                    <div class="col-6 ">
-                     <div class="form-group">
-                         <input type="date" class="form-control" id="enddate" name='enddate'  required>
-                          </div>
-                    </div>
-                </div>
-                <!-- end of model -->
-                <div class="row">
-                <div class="container bg-light">
-                    <div class="col-md-9 text-center">
-					&nbsp&nbsp&nbsp&nbsp&nbsp
-					&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="button" onclick="myFunction()" class="btn btn-primary">Reset</button>
-                    </div>
-				</div>
-				</div>
-                <!-- end of model -->
-            </form>
+					{%for i in obj1%}
+					{%if i.proj_status < 100 %}
+					<div class="row ">
+						<div class="col-12 text-center">
+						<h2>{{i.proj_name}}</h2>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-12 text-center">
+						<h4>{{i.Proj_description}}</h4>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-12 text-center">
+						<h4>{{i.start_date}}</h4>
+					</div>
+					</div>
+					<div class="row ">
+						<div class="col-6 text-center text-danger">
+							<h4>Deadline</h4>
+						</div>
+						<div class="col-6 text-center">
+						<h4>{{i.start_date}}</h4>
+					</div>
+					</div>
+
+
+
+					<form action="{% url 'updateprojstatus' pk=i.proj_name %}" method="POST">
+						{% csrf_token %}
+						
+					   <div class="slidecontainer col-12 center">
+					   
+						 <input type="range" min="1" max="100" value="{{i.proj_status}}" class="slider" name="status" id="myRange">
+						 </div>
+	 
+						  <div class="col-md-12 text-center">
+						  <button type="submit" class="btn btn-primary text-center">Submit</button>
+					   </div>
+					   
+						 
+	 
+					   </form>
+					  	
+					   {%endif%}
+					   {% endfor %}
 					</div>
 				</div>
 			</div>

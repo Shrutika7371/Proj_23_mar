@@ -11,6 +11,11 @@ urlpatterns = [
    path('addtask', views.addtask , name='addtask'),
    path('taskupdate/<str:pk>/', views.taskupdate, name='taskupdate'),
    path('taskdelete/<str:pk>/', views.taskdelete, name='taskdelete'),
+   path('updatetask', views.updatetask, name='updatetask'),
    path('taskassigned', views.taskassigned,  name = 'taskassigned'),
+   path('updatestatus/<str:pk>/', views.updatestatus, name='updatestatus'),
+   path('updateprojstatus/<str:pk>/', views.updateprojstatus, name='updateprojstatus'),
+
+
 
 ]

@@ -1,0 +1,180 @@
+{% extends 'admin-nav.html' %}
+{% block content %}
+{% load static %}
+<style>
+	.profile-pic{
+        position: absolute;
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-12 col-m-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Add User
+                    </h3>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+                <div class="card-content">
+                    
+
+                   <!-- start of form -->
+                   <form action="#" method="POST" id='myForm'>
+                    {% csrf_token %}
+                    <img class="profile-pic" src="{{obj.profile_pic.url}}" >
+                   <!-- start of model -->
+                   <div class="row">
+                       <div class="col-6 text-center">
+                     <h4>First Name<span class="text-danger">*</span> </h4>
+                       </div>
+                       <div class="col-5 ">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="fname" name='fname'  value={{obj.first_name}} required>
+                             </div>
+                       </div>
+                   </div>
+                   <!-- end of model -->
+                      <!-- start of model -->
+                   <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Last Name<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                         <input type="text" class="form-control" id="lname" name='lname'  value={{obj.last_name}} required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Email<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                         <input type="email" class="form-control" id="email" name='email'  value={{obj.email}} required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Date-of-birth<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                         <input type="date" class="form-control" id="dob" name='dob' value="{{obj.birth_date|date:"Y-m-d"}}"  required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                
+                    <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Gender<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                        <select class="form-select form-control" name="schedule" value="{{i.schedule}}"aria-label="Default select example">
+                            <option selected>{{obj.gender}}</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Transgender">Transgender</option>
+                            </select> 
+                    </div>
+                </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Phone number<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                         <input type="tel" class="form-control" id="contact" name='contact' pattern="[0-9]{10}" value="{{obj.contact}}" required>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Designation<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                        <select class="form-select form-control" name='designation' aria-label="Default select example" readonly>
+                            <option selected>{{obj.designation}}</option>
+                            {% for i in obj1 %}
+                            <option value="{{ i.designation}}">{{ i.designation}}</option>
+                            {% endfor %}
+                          </select>                       
+                    </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <!-- start of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Rate per day<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                         <input type="number" class="form-control" name="rateperday"  value="{{obj.Rate_per_day}}" readonly>
+                          </div>
+                    </div>
+                </div>
+                <!-- end of model -->
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Alloted leave<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5">
+                     <div class="form-group">
+                         <input type="number" class="form-control" name="alloted_leave"   value="{{obj.alloted_leave}}" readonly>
+                          </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center">
+                       <h4>Schedule<span class="text-danger">*</span> </h4>
+                    </div>
+                    <div class="col-5 ">
+                     <div class="form-group">
+                        <select class="form-select form-control" name="schedule"aria-label="Default select example"readonly>
+                            <option selected>{{obj.schedule}}</option>
+                            {% for i in obj2 %}
+                            <option value="{{ i.intime}} - {{i.outtime}}">{{ i.intime}} - {{i.outtime}}</option>
+                            {% endfor %}
+                          </select> 
+                        </div>
+                    </div>
+                </div>
+                <div class="container bg-light">
+                    <div class="col-md-9 text-center">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="button" onclick="myFunction()" class="btn btn-primary">Reset</button>
+                    </div>
+                </div>
+                <!-- end of model -->
+            </form>
+                   <!-- end of form -->
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+        
+        {% endblock %}

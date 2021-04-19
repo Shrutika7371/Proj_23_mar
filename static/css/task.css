@@ -1,0 +1,30 @@
+.wrap{
+    box-sizing: border-box;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .flex-item {
+    background-color: #f1f1f1;
+    padding: 10px;
+    flex: 33%;
+  }
+ 
+  
+  /* Responsive layout - makes a one column-layout instead of a two-column layout */
+  @media (max-width: 1000px) {
+    .flex-item {
+      flex: 100%;
+    }
+  }
+  .counter{
+      color:black;
+      border-style:solid;
+      border-width: 2px;
+      border-color: rgb(252, 91, 63);
+  }

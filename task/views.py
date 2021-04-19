@@ -107,10 +107,11 @@ def taskupdate(request,pk):
  
 
 def taskdelete(request,pk):
+    print(pk)
     obj = Taskdata.objects.get(task_name=pk)
     obj1 = obj.assign_member
     member.objects.filter(member_name=obj1).update(member_status="free")
-    obj.delete()
+    Taskdata.objects.filter(task_name=pk).delete()
     return redirect("task")
 
 
@@ -119,5 +120,45 @@ def taskassigned(request):
     mem = member.objects.get(member_email=email)
     obj = Taskdata.objects.filter(assign_member=mem)
     print(obj)
+    for i in obj:
+        print(i.task_status)
     dict1 = {'obj':obj}
+    
     return render(request,'taskassigned.html',dict1)
+
+
+def updatetask(request):
+    taskname = request.POST.get('task')
+    print(taskname)
+    task_details = request.POST.get('task_details')
+    member_name = request.POST.get('member_name')
+    startdate = request.POST.get('startdate')
+    enddate = request.POST.get('enddate')
+    obj = member.objects.get(member_name=member_name)
+    Taskdata.objects.filter(task_name = taskname).update(task_details=task_details, assign_member =obj, start_date=startdate, end_date=enddate)
+    return redirect('task')
+
+
+def updatestatus(request,pk):
+    status = request.POST.get('status')
+    email = request.user.email
+    Taskdata.objects.filter(task_name=pk).update(task_status=status)
+    if(status == '100'):
+        member.objects.filter(member_email=email).update(member_status="free")
+
+    return redirect('taskassigned')
+
+
+
+def updateprojstatus(request,pk):
+    status = request.POST.get('status')
+    print(status)
+    print(pk)
+    email = request.user.email
+    obj= CustomUser.objects.get(email=email)
+    team_name=member.objects.get(member_email=email).team_name
+    Project.objects.filter(proj_name=pk).update(proj_status=status)
+    if(status == '100'):
+        team.objects.filter(team_name=team_name).update(status="free")
+
+    return redirect('index')
