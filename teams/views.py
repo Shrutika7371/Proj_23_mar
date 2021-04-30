@@ -40,6 +40,7 @@ def teamdelete(request,teamname):
 def teamdetails(request,teamname):      
     obj=team.objects.get(team_name = teamname)
     obj1=Project.objects.filter(assigned_to = obj.team_name)
+    print(obj1)
     obj2=member.objects.filter(team_name = teamname)
     obj3=CustomUser.objects.filter(position = "employee")
     if obj1 is not None:

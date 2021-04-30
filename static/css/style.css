@@ -139,6 +139,7 @@ body {
 }
 
 .avt img {
+	margin-right:50px;
 	width: 39px;
 	height: 39px;
 	border-radius: 50%;
@@ -173,10 +174,11 @@ body {
 	display: none;
 	flex-direction: column;
 	position: absolute;
-	right: 20%;
+
+left:0;
 	top: 90%;
 	background: var(--main-bg-color);
-	max-width: 300px;
+min-width:200px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 1;
 	padding: unset;
@@ -204,7 +206,7 @@ body {
 .dropdown-menu-link {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: left;
 	text-decoration: none;
 	color: var(--main-color);
 }
@@ -219,7 +221,6 @@ body {
 	font-size: 1.25rem;
 	color: var(--second-color);
 	position: absolute;
-	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 }

@@ -101,8 +101,9 @@ def adduser(request):
     rateperday = request.POST.get('rateperday')
     alloted_leave = request.POST.get('alloted_leave')
     schedule = request.POST.get('schedule')
+    img = request.POST.get('img')
     
-    new_user = CustomUser.objects.create(first_name=fname,last_name=lname,email=email,birth_date=dob,gender=gender,designation=designation,contact=contact,Rate_per_day=rateperday,alloted_leave=alloted_leave,schedule=schedule)
+    new_user = CustomUser.objects.create(first_name=fname,last_name=lname,email=email,birth_date=dob,gender=gender,designation=designation,contact=contact,Rate_per_day=rateperday,alloted_leave=alloted_leave,schedule=schedule, profile_pic=img)
     new_user.set_password(password)
     new_user.save()
     return render(request, 'index.html' , {'alert':'registered succesfully'})
